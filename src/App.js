@@ -7,7 +7,7 @@ import Footer from "./components/footer";
 import NavRootLayout from "./components/NavRootElement";
 import HomePage from "./pages/Home";
 import Contact from "./pages/Contact";
-import LogIn from "./pages/Auth";
+import { LogIn, action as authAction } from "./pages/Auth";
 import About from "./pages/About";
 import AuthPage from "./pages/Auth";
 import DashBoard from "./pages/DashBoard";
@@ -38,12 +38,9 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "login",
+        path: "auth",
         element: <AuthPage />,
-      },
-      {
-        path: "signup",
-        element: <AuthPage isSignUp={true} />,
+        action: authAction,
       },
       {
         path: "about",

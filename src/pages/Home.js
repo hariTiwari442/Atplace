@@ -37,12 +37,16 @@ const featureCardContent = [
 ];
 const HomePage = () => {
   return (
-    <>
-      <Hero />
-      <FeatureList features={featureCardContent} />
+    <div className="flex flex-col min-h-screen">
+      {/* Main Content */}
+      <main className="flex-grow">
+        <Hero />
+        <FeatureList features={featureCardContent} />
+      </main>
+
+      {/* Footer (Always at Bottom) */}
       <Footer />
-      {/* <Hero /> */}
-    </>
+    </div>
   );
 };
 
