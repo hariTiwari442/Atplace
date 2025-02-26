@@ -1,6 +1,5 @@
 import Hero from "../components/hero";
 import FeatureList from "../components/Featurecardlist";
-import Footer from "../components/footer";
 import location from "../assets/location.png";
 import report from "../assets/report.png";
 import saveTime from "../assets/save-time.png";
@@ -45,7 +44,6 @@ const HomePage = () => {
       </main>
 
       {/* Footer (Always at Bottom) */}
-      <Footer />
     </div>
   );
 };

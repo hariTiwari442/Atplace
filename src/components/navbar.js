@@ -1,5 +1,6 @@
 import user from "../assets/user.png";
 import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
 // const Navbar = () => {
 //   return (
 //     <nav className="flex justify-between items-center p-5 bg-white shadow-md">
@@ -24,17 +25,49 @@ import { NavLink } from "react-router-dom";
 
 // export default Navbar;
 import React, { useState } from "react";
+import Logo from "./UI/Logo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  let UserId;
+  const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
+
+  // Function to update userId state from localStorage
+  const updateUserId = () => {
+    setUserId(localStorage.getItem("userId") || "");
+  };
+
+  // ✅ Listen for localStorage changes (Works across tabs)
+  useEffect(() => {
+    window.addEventListener("storage", updateUserId);
+
+    return () => {
+      window.removeEventListener("storage", updateUserId);
+    };
+  }, []);
+
+  // ✅ Update state when user logs in/out (within same tab)
+  useEffect(() => {
+    const originalSetItem = localStorage.setItem;
+
+    localStorage.setItem = function (key, value) {
+      console.log("checking");
+      originalSetItem.apply(this, arguments);
+      if (key === "userId") {
+        updateUserId(); // Trigger update when userId changes
+      }
+    };
+
+    return () => {
+      localStorage.setItem = originalSetItem; // Restore original function
+    };
+  }, [userId]);
 
   return (
     <nav className="p-5 bg-white shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <NavLink href="#" className="text-lg font-bold text-gray-900">
-          MyApp
+          <Logo />
         </NavLink>
 
         {/* Burger Icon for Mobile */}
@@ -75,27 +108,31 @@ const Navbar = () => {
           >
             Contact
           </NavLink>
-          <NavLink
-            to={`/dashboard/${UserId}`}
-            className={({ isActive }) =>
-              isActive ? "text-blue-600" : undefined
-            }
-          >
-            Dashboard
-          </NavLink>
+          {userId !== "" && (
+            <NavLink
+              to={`/dashboard/${userId}`}
+              className={({ isActive }) =>
+                isActive ? "text-blue-600" : undefined
+              }
+            >
+              Dashboard
+            </NavLink>
+          )}
           {/* "hover:text-blue-600 flex items-center space-x-2" */}
           {/* Profile with Icon */}
-          <NavLink
-            to={`/profile/${UserId}`}
-            className={({ isActive }) =>
-              isActive
-                ? "text-blue-600 flex important  items-center space-x-2"
-                : "flex items-center space-x-2"
-            }
-          >
-            <span>Profile</span>
-            <img src={user} alt="User" className="w-6 h-6 rounded-full" />
-          </NavLink>
+          {userId !== "" && (
+            <NavLink
+              to={`/profile/${userId}`}
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-600 flex important  items-center space-x-2"
+                  : "flex items-center space-x-2"
+              }
+            >
+              <span>Profile</span>
+              <img src={user} alt="User" className="w-6 h-6 rounded-full" />
+            </NavLink>
+          )}
         </div>
       </div>
     </nav>

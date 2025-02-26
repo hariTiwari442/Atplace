@@ -81,7 +81,11 @@ const AuthPage = (props) => {
         <p className="mt-6 text-center text-sm">
           {isSignUp ? "Already have an account?" : "Need an account?"}{" "}
           <button
-            onClick={() => setIsSignup(!isSignUp)}
+            onClick={() =>
+              setIsSignup((prevState) => {
+                return !prevState;
+              })
+            }
             className="text-black font-medium hover:underline"
           >
             {isSignUp ? "Log in" : "Sign up"}
@@ -97,13 +101,27 @@ export default AuthPage;
 export const action = async ({ request }) => {
   const searchParams = new URL(request.url).searchParams;
   const mode = searchParams.get("mode") || "login";
-  console.log("https:8080/" + mode, "url");
+  console.log("http://localhost:8080/" + mode, "url");
   const data = await request.formData();
   const authData = {
-    name: data.get("name"),
+    username: data.get("name"),
     email: data.get("email"),
     password: data.get("password"),
   };
-  console.log(authData);
+
+  const res = await fetch("http://localhost:8080/" + mode, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(authData),
+  });
+
+  const resData = await res.json();
+  const token = resData.token;
+  const userId = resData.userId;
+  console.log(resData);
+  localStorage.setItem("token", token);
+  localStorage.setItem("userId", userId);
   return redirect("/");
 };

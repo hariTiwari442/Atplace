@@ -12,8 +12,11 @@ import About from "./pages/About";
 import AuthPage from "./pages/Auth";
 import DashBoard from "./pages/DashBoard";
 import Profile from "./pages/Profile";
-import { loader as DashBoardAction } from "./pages/DashBoard";
+import { loader as profileLoader } from "./pages/Profile";
+import { loader as DashBoardLoader } from "./pages/DashBoard";
+import { action as DashBoardAction } from "./pages/DashBoard";
 import { loader as ProfileLoader } from "./pages/Profile";
+import { checkAuthLoader, tokenLoader } from "./components/util/auth";
 
 // const featureCardContent = {
 //   key: 1,
@@ -32,6 +35,8 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <NavRootLayout />,
+    id: "root",
+    loader: tokenLoader,
     children: [
       {
         index: true,
@@ -49,7 +54,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/:uid",
         element: <DashBoard />,
-        loader: DashBoardAction,
+        loader: DashBoardLoader,
       },
       {
         path: "contact",
@@ -58,7 +63,7 @@ const router = createBrowserRouter([
       {
         path: "/profile/:uid",
         element: <Profile />,
-        loader: ProfileLoader,
+        loader: profileLoader,
       },
     ],
   },

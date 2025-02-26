@@ -1,8 +1,9 @@
 import React from "react";
+import Footer from "../components/footer";
 
 const Contact = () => {
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6 flex flex-col min-h-screen">
       <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
       <div className="grid md:grid-cols-2 gap-8">
         {/* Contact Form */}
@@ -51,6 +52,7 @@ const Contact = () => {
           <p>Saturday - Sunday: Closed</p>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
