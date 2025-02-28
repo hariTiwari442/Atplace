@@ -128,7 +128,7 @@ export const loader = async ({ params }) => {
   const { uid: UserId } = params;
   const token = localStorage.getItem("token");
   if (!UserId || UserId === "undefined" || !token) {
-    return redirect("/login");
+    return redirect("/auth?mode=signup");
   }
 
   const response = await fetch("http://localhost:8080/dashboard/getAll", {

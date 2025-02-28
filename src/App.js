@@ -17,6 +17,7 @@ import { loader as DashBoardLoader } from "./pages/DashBoard";
 import { action as DashBoardAction } from "./pages/DashBoard";
 import { loader as ProfileLoader } from "./pages/Profile";
 import { checkAuthLoader, tokenLoader } from "./components/util/auth";
+import VerifyOTP from "./pages/Otp";
 
 // const featureCardContent = {
 //   key: 1,
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
         path: "/profile/:uid",
         element: <Profile />,
         loader: profileLoader,
+      },
+      {
+        path: "/verify-otp",
+        element: <VerifyOTP />,
       },
     ],
   },

@@ -101,7 +101,6 @@ export default AuthPage;
 export const action = async ({ request }) => {
   const searchParams = new URL(request.url).searchParams;
   const mode = searchParams.get("mode") || "login";
-  console.log("http://localhost:8080/" + mode, "url");
   const data = await request.formData();
   const authData = {
     username: data.get("name"),
@@ -121,7 +120,19 @@ export const action = async ({ request }) => {
   const token = resData.token;
   const userId = resData.userId;
   console.log(resData);
-  localStorage.setItem("token", token);
-  localStorage.setItem("userId", userId);
+  if (res.ok && mode === "signup") {
+    return redirect(
+      `/verify-otp?email=${encodeURIComponent(
+        authData.email
+      )}&userid=${encodeURIComponent(userId)}`
+    );
+  }
+  console.log(resData);
+  if (res.ok && mode === "login") {
+    console.log("from here", token, userId);
+    localStorage.setItem("token", token);
+    localStorage.setItem("userId", userId);
+    return redirect(`/dashboard/${userId}`);
+  }
   return redirect("/");
 };

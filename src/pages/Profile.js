@@ -40,7 +40,7 @@ const Profile = () => {
 
   const handleLogout = () => {
     localStorage.clear(); // Clear all local storage
-    navigate("/login", { replace: true }); // Redirect to login page
+    navigate("/auth?mode=login", { replace: true }); // Redirect to login page
     window.location.reload(); // Force a full re-render
   };
 
@@ -140,7 +140,7 @@ export const loader = async ({ params }) => {
 
   const { uid } = params;
   if (!uid || uid === "undefined") {
-    return redirect("/login");
+    return redirect("/auth?mode=login");
   }
 
   try {
