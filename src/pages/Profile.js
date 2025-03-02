@@ -53,7 +53,7 @@ const Profile = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8080/dashboard/uploadImg",
+        "https://aristotle-452112.de.r.appspot.com/dashboard/uploadImg",
         {
           method: "POST",
           body: formData,
@@ -62,7 +62,7 @@ const Profile = () => {
 
       const data = await response.json();
       if (data.imageUrl) {
-        setImage(`http://localhost:8080/${data.imageUrl}`);
+        setImage(`https://aristotle-452112.de.r.appspot.com/${data.imageUrl}`);
       }
     } catch (error) {
       console.error("Upload failed:", error);
@@ -144,11 +144,14 @@ export const loader = async ({ params }) => {
   }
 
   try {
-    const response = await fetch("http://localhost:8080/dashboard/profile", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      "https://aristotle-452112.de.r.appspot.com/dashboard/profile",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to fetch profile");

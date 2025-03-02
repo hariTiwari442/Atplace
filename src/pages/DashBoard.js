@@ -26,7 +26,7 @@ const DashBoard = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/dashboard/place/${placeId}`,
+        `https://aristotle-452112.de.r.appspot.com/dashboard/place/${placeId}`,
         {
           method: "DELETE",
           headers: {
@@ -61,14 +61,17 @@ const DashBoard = () => {
 
   const handleSubmit = async (formData) => {
     try {
-      const response = await fetch("http://localhost:8080/dashboard/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://aristotle-452112.de.r.appspot.com/dashboard/add",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await response.json();
       console.log("Place Added:", data);
       revalidate(); // Manually refresh the loader
@@ -131,13 +134,16 @@ export const loader = async ({ params }) => {
     return redirect("/auth?mode=signup");
   }
 
-  const response = await fetch("http://localhost:8080/dashboard/getAll", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await fetch(
+    "https://aristotle-452112.de.r.appspot.com/dashboard/getAll",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   if (!response.ok) {
     console.log("error hai");

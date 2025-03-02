@@ -45,11 +45,14 @@ const VerifyOTP = () => {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8080/verify-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ otp: otpCode, userid: userid }),
-      });
+      const res = await fetch(
+        "https://aristotle-452112.de.r.appspot.com/verify-otp",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ otp: otpCode, userid: userid }),
+        }
+      );
 
       const resData = await res.json();
       if (res.ok) {
@@ -70,11 +73,14 @@ const VerifyOTP = () => {
     setResendDisabled(true);
 
     try {
-      const res = await fetch("http://localhost:8080/resend-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userid: userid, email: email }),
-      });
+      const res = await fetch(
+        "https://aristotle-452112.de.r.appspot.com/resend-otp",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userid: userid, email: email }),
+        }
+      );
 
       const resData = await res.json();
       if (res.ok) {

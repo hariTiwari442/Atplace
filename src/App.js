@@ -16,8 +16,11 @@ import { loader as profileLoader } from "./pages/Profile";
 import { loader as DashBoardLoader } from "./pages/DashBoard";
 import { action as DashBoardAction } from "./pages/DashBoard";
 import { loader as ProfileLoader } from "./pages/Profile";
+import { action as contactAction } from "./pages/Contact";
 import { checkAuthLoader, tokenLoader } from "./components/util/auth";
+import ForgotPassword from "./pages/ForgotPassword";
 import VerifyOTP from "./pages/Otp";
+import SetNewPassword from "./pages/SetNewPassword";
 
 // const featureCardContent = {
 //   key: 1,
@@ -60,6 +63,7 @@ const router = createBrowserRouter([
       {
         path: "contact",
         element: <Contact />,
+        action: contactAction,
       },
       {
         path: "/profile/:uid",
@@ -69,6 +73,14 @@ const router = createBrowserRouter([
       {
         path: "/verify-otp",
         element: <VerifyOTP />,
+      },
+      {
+        path: "/forget-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/set-new-password",
+        element: <SetNewPassword />,
       },
     ],
   },

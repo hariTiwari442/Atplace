@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { FaGithub, FaTwitter } from "react-icons/fa";
-import { Form, redirect, useSearchParams } from "react-router-dom";
+import {
+  Form,
+  redirect,
+  useSearchParams,
+  useNavigate,
+  Link,
+} from "react-router-dom";
 
 const AuthPage = (props) => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [isSignUp, setIsSignup] = useState(
     searchParams.get("mode") === "signup"
@@ -58,6 +65,16 @@ const AuthPage = (props) => {
           >
             {isSignUp ? "Sign Up" : "Log In"}
           </button>
+          {!isSignUp && (
+            <div className="text-right mt-2">
+              <Link
+                to="/forget-password"
+                className="text-sm text-gray-600 hover:text-black hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
+          )}
         </Form>
 
         {/* Divider */}
@@ -81,11 +98,16 @@ const AuthPage = (props) => {
         <p className="mt-6 text-center text-sm">
           {isSignUp ? "Already have an account?" : "Need an account?"}{" "}
           <button
-            onClick={() =>
+            onClick={() => {
               setIsSignup((prevState) => {
                 return !prevState;
-              })
-            }
+              });
+              if (!isSignUp) {
+                navigate("/auth?mode=signup");
+              } else {
+                navigate("/auth?mode=login");
+              }
+            }}
             className="text-black font-medium hover:underline"
           >
             {isSignUp ? "Log in" : "Sign up"}
@@ -108,7 +130,7 @@ export const action = async ({ request }) => {
     password: data.get("password"),
   };
 
-  const res = await fetch("http://localhost:8080/" + mode, {
+  const res = await fetch("https://aristotle-452112.de.r.appspot.com/" + mode, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

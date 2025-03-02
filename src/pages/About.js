@@ -4,7 +4,7 @@ import Footer from "../components/footer";
 const About = () => {
   return (
     <div className="max-w-3xl mx-auto px-6 py-12 font-inter">
-      <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
+      <h1 className="text-4xl font-bold mb-6">About Us</h1>
 
       {/* Company Info */}
       <p className="text-lg text-gray-700 mb-6">
