@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/Atplace/static/css/main.70d033f7.css",
+    "main.js": "/Atplace/static/js/main.5b8f25dc.js",
+    "static/media/user.png": "/Atplace/static/media/user.557587208eb9e232f2ca.png",
+    "static/media/location.png": "/Atplace/static/media/location.a1436562e30c209166cd.png",
+    "static/media/report.png": "/Atplace/static/media/report.a6ad0ee56d2c395968ff.png",
+    "static/media/easy.png": "/Atplace/static/media/easy.68f22729a7d6ba53e515.png",
+    "static/media/save-time.png": "/Atplace/static/media/save-time.be2f24a585ffd94059ec.png",
+    "index.html": "/Atplace/index.html",
+    "static/media/index.cjs": "/Atplace/static/media/index.f6d03137e8c9dd0de04c.cjs",
+    "main.70d033f7.css.map": "/Atplace/static/css/main.70d033f7.css.map",
+    "main.5b8f25dc.js.map": "/Atplace/static/js/main.5b8f25dc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.70d033f7.css",
+    "static/js/main.5b8f25dc.js"
+  ]
+}
