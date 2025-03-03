@@ -46,7 +46,7 @@ const VerifyOTP = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://aristotle-452112.de.r.appspot.com/verify-otp",
+        "https://aristotle-839538790556.asia-south2.run.app/verify-otp",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -74,7 +74,7 @@ const VerifyOTP = () => {
 
     try {
       const res = await fetch(
-        "https://aristotle-452112.de.r.appspot.com/resend-otp",
+        "https://aristotle-839538790556.asia-south2.run.app/resend-otp",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

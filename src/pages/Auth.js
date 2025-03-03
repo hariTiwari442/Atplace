@@ -27,11 +27,11 @@ const AuthPage = (props) => {
       email: formData.get("email"),
       password: formData.get("password"),
     };
-
+    // https://aristotle-839538790556.asia-south2.run.app
     try {
       const mode = isSignUp ? "signup" : "login";
       const res = await fetch(
-        `https://aristotle-452112.de.r.appspot.com/${mode}`,
+        `https://aristotle-839538790556.asia-south2.run.app/${mode}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -199,13 +199,16 @@ export const action = async ({ request }) => {
     password: data.get("password"),
   };
 
-  const res = await fetch("https://aristotle-452112.de.r.appspot.com/" + mode, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(authData),
-  });
+  const res = await fetch(
+    "https://aristotle-839538790556.asia-south2.run.app/" + mode,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(authData),
+    }
+  );
 
   const resData = await res.json();
   const token = resData.token;

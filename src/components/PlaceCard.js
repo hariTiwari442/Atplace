@@ -36,7 +36,7 @@ const PlaceCard = ({ name, count, placeId, onDelete, Tag }) => {
 
           try {
             const response = await fetch(
-              `https://aristotle-452112.de.r.appspot.com/dashboard/place/${placeId}`,
+              `https://aristotle-839538790556.asia-south2.run.app/dashboard/place/${placeId}`,
               {
                 method: "POST",
                 headers: {

@@ -26,7 +26,7 @@ const DashBoard = () => {
 
     try {
       const response = await fetch(
-        `https://aristotle-452112.de.r.appspot.com/dashboard/place/${placeId}`,
+        `https://aristotle-839538790556.asia-south2.run.app/dashboard/place/${placeId}`,
         {
           method: "DELETE",
           headers: {
@@ -62,7 +62,7 @@ const DashBoard = () => {
   const handleSubmit = async (formData) => {
     try {
       const response = await fetch(
-        "https://aristotle-452112.de.r.appspot.com/dashboard/add",
+        "https://aristotle-839538790556.asia-south2.run.app/dashboard/add",
         {
           method: "POST",
           headers: {
@@ -135,7 +135,7 @@ export const loader = async ({ params }) => {
   }
 
   const response = await fetch(
-    "https://aristotle-452112.de.r.appspot.com/dashboard/getAll",
+    "https://aristotle-839538790556.asia-south2.run.app/dashboard/getAll",
     {
       method: "GET",
       headers: {

@@ -14,7 +14,7 @@ const ForgotPassword = () => {
 
     try {
       const res = await axios.post(
-        "https://aristotle-452112.de.r.appspot.com/forgot-password",
+        "https://aristotle-839538790556.asia-south2.run.app/forgot-password",
         {
           email,
         }

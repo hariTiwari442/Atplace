@@ -35,7 +35,7 @@ const SetNewPassword = () => {
     console.log(formData);
 
     // API call to update password
-    fetch("https://aristotle-452112.de.r.appspot.com/reset-password", {
+    fetch("https://aristotle-839538790556.asia-south2.run.app/reset-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

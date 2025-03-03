@@ -53,7 +53,7 @@ const Profile = () => {
 
     try {
       const response = await fetch(
-        "https://aristotle-452112.de.r.appspot.com/dashboard/uploadImg",
+        "https://aristotle-839538790556.asia-south2.run.app/dashboard/uploadImg",
         {
           method: "POST",
           body: formData,
@@ -62,7 +62,9 @@ const Profile = () => {
 
       const data = await response.json();
       if (data.imageUrl) {
-        setImage(`https://aristotle-452112.de.r.appspot.com/${data.imageUrl}`);
+        setImage(
+          `https://aristotle-839538790556.asia-south2.run.app/${data.imageUrl}`
+        );
       }
     } catch (error) {
       console.error("Upload failed:", error);
@@ -145,7 +147,7 @@ export const loader = async ({ params }) => {
 
   try {
     const response = await fetch(
-      "https://aristotle-452112.de.r.appspot.com/dashboard/profile",
+      "https://aristotle-839538790556.asia-south2.run.app/dashboard/profile",
       {
         headers: {
           Authorization: `Bearer ${token}`,
