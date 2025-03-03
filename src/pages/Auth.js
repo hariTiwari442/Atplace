@@ -11,9 +11,59 @@ import {
 const AuthPage = (props) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [userExist, setUserExist] = useState(false);
   const [isSignUp, setIsSignup] = useState(
     searchParams.get("mode") === "signup"
   );
+  const [isProcessing, setIsProcessing] = useState(false); // New state for loading
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsProcessing(true); // Start loading
+
+    const formData = new FormData(event.target);
+    const authData = {
+      username: formData.get("name"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+
+    try {
+      const mode = isSignUp ? "signup" : "login";
+      const res = await fetch(
+        `https://aristotle-452112.de.r.appspot.com/${mode}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(authData),
+        }
+      );
+
+      const resData = await res.json();
+
+      if (res.ok && mode === "signup") {
+        navigate(
+          `/verify-otp?email=${encodeURIComponent(
+            authData.email
+          )}&userid=${encodeURIComponent(resData.userId)}`
+        );
+      } else if (res.ok && mode === "login") {
+        localStorage.setItem("token", resData.token);
+        localStorage.setItem("userId", resData.userId);
+        navigate(`/dashboard/${resData.userId}`);
+      } else {
+        if (res.status == 409) {
+          setIsProcessing(true);
+        }
+        alert(resData.message || "Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Auth Error:", error);
+      alert("Network error! Try again.");
+    }
+
+    setIsProcessing(false); // Stop loading
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-white font-inter">
@@ -24,7 +74,7 @@ const AuthPage = (props) => {
         </h2>
 
         {/* Form */}
-        <Form method="post" className="space-y-4">
+        <Form method="post" className="space-y-4" onSubmit={handleSubmit}>
           {isSignUp && (
             <div>
               <label className="text-sm font-medium">Full Name</label>
@@ -34,6 +84,7 @@ const AuthPage = (props) => {
                 name="name"
                 placeholder="John Doe"
                 className="w-full p-3 mt-1 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                required
               />
             </div>
           )}
@@ -45,6 +96,7 @@ const AuthPage = (props) => {
               name="email"
               placeholder="johndoe@example.com"
               className="w-full p-3 mt-1 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              required
             />
           </div>
           <div>
@@ -55,16 +107,19 @@ const AuthPage = (props) => {
               name="password"
               placeholder="••••••••"
               className="w-full p-3 mt-1 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              required
             />
           </div>
 
           {/* Auth Button */}
           <button
             type="submit"
-            className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition"
+            className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={isProcessing} // Disable button while processing
           >
-            {isSignUp ? "Sign Up" : "Log In"}
+            {isProcessing ? "Processing..." : isSignUp ? "Sign Up" : "Log In"}
           </button>
+
           {!isSignUp && (
             <div className="text-right mt-2">
               <Link
@@ -75,7 +130,27 @@ const AuthPage = (props) => {
               </Link>
             </div>
           )}
+          {isProcessing && (
+            <div className="text-right mt-2">
+              <Link
+                to="/verify-mail"
+                className="text-sm text-gray-600 hover:text-black hover:underline"
+              >
+                Verify your mail
+              </Link>
+            </div>
+          )}
         </Form>
+
+        {/* Processing Popup */}
+        {isProcessing && (
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+              <p className="text-lg font-semibold">Processing...</p>
+              <p className="text-sm text-gray-500">Please wait</p>
+            </div>
+          </div>
+        )}
 
         {/* Divider */}
         <div className="flex items-center my-6">
@@ -99,14 +174,8 @@ const AuthPage = (props) => {
           {isSignUp ? "Already have an account?" : "Need an account?"}{" "}
           <button
             onClick={() => {
-              setIsSignup((prevState) => {
-                return !prevState;
-              });
-              if (!isSignUp) {
-                navigate("/auth?mode=signup");
-              } else {
-                navigate("/auth?mode=login");
-              }
+              setIsSignup((prevState) => !prevState);
+              navigate(isSignUp ? "/auth?mode=login" : "/auth?mode=signup");
             }}
             className="text-black font-medium hover:underline"
           >
