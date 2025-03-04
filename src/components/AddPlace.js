@@ -62,9 +62,9 @@ const PlaceForm = ({ onClose, onSubmit, showForm }) => {
           />
           <input
             type="text"
-            name="place"
+            name="tag"
             placeholder="Enter Tag like (Gym,Office)"
-            value={formData.place}
+            value={formData.tag}
             onChange={handleChange}
             required
             className="w-full p-2 border rounded-md font-inter"
