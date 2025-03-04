@@ -39,6 +39,7 @@ const PlaceCard = ({ name, count, placeId, onDelete, Tag }) => {
               `https://aristotle-839538790556.asia-south2.run.app/dashboard/place/${placeId}`,
               {
                 method: "POST",
+                mode: "cors",
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem("token")}`,
                   "Content-Type": "application/json",

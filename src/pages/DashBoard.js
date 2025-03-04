@@ -29,6 +29,7 @@ const DashBoard = () => {
         `http://localhost:8080/dashboard/place/${placeId}`,
         {
           method: "DELETE",
+          mode: "cors",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
@@ -65,6 +66,7 @@ const DashBoard = () => {
         "https://aristotle-839538790556.asia-south2.run.app/dashboard/add",
         {
           method: "POST",
+          mode: "cors",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -138,6 +140,7 @@ export const loader = async ({ params }) => {
     "https://aristotle-839538790556.asia-south2.run.app/dashboard/getAll",
     {
       method: "GET",
+      mode: "cors",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
