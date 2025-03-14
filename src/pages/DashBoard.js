@@ -23,10 +23,9 @@ const DashBoard = () => {
       "Are you sure you want to delete this place?"
     );
     if (!proceed) return;
-
     try {
       const response = await fetch(
-        `http://localhost:8080/dashboard/place/${placeId}`,
+        `http://localhost:8080/dashboard/delete/place/${placeId}`,
         {
           method: "POST",
           headers: {
