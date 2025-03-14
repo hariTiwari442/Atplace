@@ -27,7 +27,7 @@ const DashBoard = () => {
       const response = await fetch(
         `http://localhost:8080/dashboard/delete/place/${placeId}`,
         {
-          method: "POST",
+          method: "DELETE",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
