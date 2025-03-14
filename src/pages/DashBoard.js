@@ -25,7 +25,7 @@ const DashBoard = () => {
     if (!proceed) return;
     try {
       const response = await fetch(
-        `http://localhost:8080/dashboard/delete/place/${placeId}`,
+        `https://aristotle-839538790556.asia-south2.run.app/dashboard/delete/place/${placeId}`,
         {
           method: "DELETE",
           headers: {
