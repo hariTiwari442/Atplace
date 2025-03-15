@@ -24,55 +24,62 @@ const PlaceCard = ({ name, count, placeId, onDelete, Tag }) => {
   };
   const updateHandler = async () => {
     try {
-      // Check if Geolocation is available
       if (!navigator.geolocation) {
         setErrorMessage("Geolocation is not supported by your browser.");
         return;
       }
 
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
+      const getPosition = () =>
+        new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, {
+            enableHighAccuracy: true, // More precise location
+            timeout: 10000, // 10s timeout
+            maximumAge: 5000, // Cache position for 5s
+          });
+        });
 
-          try {
-            const response = await fetch(
-              `https://aristotle-839538790556.asia-south2.run.app/dashboard/place/${placeId}`,
-              {
-                method: "POST",
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ latitude, longitude }),
-              }
-            );
+      // Get current location
+      const position = await getPosition();
+      const { latitude, longitude } = position.coords;
 
-            // Ensure JSON response is handled safely
-            let data;
-            try {
-              data = await response.json();
-            } catch (jsonError) {
-              throw new Error("Invalid response from server.");
-            }
+      // Set API timeout (AbortController)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 7000); // 7s timeout
 
-            if (!response.ok) {
-              throw new Error(data?.message || "Failed to update place");
-            }
-
-            setSuccessMessage("Place updated successfully!");
-            setErrorMessage(""); // Clear errors
-            setnewCount(data.counter || newCount);
-          } catch (fetchError) {
-            setErrorMessage(fetchError.message || "Network error occurred");
-          }
-        },
-        (geoError) => {
-          setErrorMessage(`Location error: ${geoError.message}`);
+      const response = await fetch(
+        `https://aristotle-839538790556.asia-south2.run.app/dashboard/place/${placeId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ latitude, longitude }),
+          signal: controller.signal,
         }
       );
+
+      clearTimeout(timeoutId); // Clear timeout if request completes
+
+      if (!response.ok) {
+        const errorText = await response.text(); // Read raw response
+        const errorJson = JSON.parse(errorText);
+        throw new Error(errorJson.message || "Failed to update place");
+      }
+
+      // Parse response safely
+      let data;
+      try {
+        data = JSON.parse(await response.text());
+      } catch (jsonError) {
+        throw new Error("Invalid response from server.");
+      }
+
+      setSuccessMessage("Place updated successfully!");
+      setErrorMessage("");
+      setnewCount(data.counter || newCount);
     } catch (error) {
       setErrorMessage(error.message || "Something went wrong.");
-      setSuccessMessage(""); // Clear success message
     }
   };
 
