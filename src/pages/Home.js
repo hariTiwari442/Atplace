@@ -4,6 +4,7 @@ import location from "../assets/location.png";
 import report from "../assets/report.png";
 import saveTime from "../assets/save-time.png";
 import easy from "../assets/easy.png";
+import Footer from "../components/footer";
 const featureCardContent = [
   {
     key: 1,
@@ -42,7 +43,7 @@ const HomePage = () => {
         <Hero />
         <FeatureList features={featureCardContent} />
       </main>
-
+      <Footer />
       {/* Footer (Always at Bottom) */}
     </div>
   );

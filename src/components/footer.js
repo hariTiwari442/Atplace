@@ -4,7 +4,7 @@ const Footer = () => {
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
         {/* Left Side - Branding */}
         <div className="mb-6 md:mb-0">
-          <h2 className="text-xl font-bold">MyApp</h2>
+          <h2 className="text-xl font-bold">Atplace</h2>
           <p className="text-gray-400 text-sm">
             © 2025 MyApp. All Rights Reserved.
           </p>
@@ -24,17 +24,7 @@ const Footer = () => {
         </div>
 
         {/* Right Side - Social Media Icons */}
-        <div className="flex space-x-4">
-          <a href="#" className="hover:text-gray-400">
-            <i className="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" className="hover:text-gray-400">
-            <i className="fab fa-twitter"></i>
-          </a>
-          <a href="#" className="hover:text-gray-400">
-            <i className="fab fa-instagram"></i>
-          </a>
-        </div>
+        <div className="flex space-x-4">Made with love. ❣️</div>
       </div>
     </footer>
   );

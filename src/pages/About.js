@@ -8,34 +8,35 @@ const About = () => {
 
       {/* Company Info */}
       <p className="text-lg text-gray-700 mb-6">
-        Have questions or inquiries? Feel free to reach out to us. Our team is
-        always ready to assist you.
+        Atplace was built in April 2024 by Optum employees, for Optum employees.
+        Designed to solve the hassle of tracking in-office workdays, it
+        automatically records your attendance—so you don’t have to. Just
+        download the app, show up at the office, and let AtPlace do the rest.
       </p>
 
       {/* Contact Form */}
       <h2 className="text-2xl font-bold mb-1">Our Team</h2>
       <dv>
         <p>
-          Classy Company was founded in 2023 with a vision to redefine elegance
-          in the digital age. We believe in the power of simplicity and the
-          beauty of minimalism
+          Atplace, founded in April 2024, is designed to simplify attendance
+          tracking for Optum employees. We believe in the power of automation
+          and ease, eliminating the need for manual tracking.
         </p>
         <br></br>
         <p>
-          Our team of passionate designers and developers work tirelessly to
-          create products that not only look stunning but also provide an
-          unparalleled user experience
+          Our team is dedicated to creating a seamless experience, ensuring you
+          can focus on work while Atplace handles the rest. Just show up, and
+          we’ll take care of the counting.
         </p>
       </dv>
 
       {/* Our Team */}
-      <h2 className="text-2xl font-bold mb-6 mt-6">Our Team</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <h2 className="text-2xl font-bold mb-6 mt-6">Members</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Team Member */}
         {[
-          { name: "Hari T", role: "executive director" },
-          { name: "Yuganshi", role: "chief technological officer" },
-          { name: "Alice Johnson", role: "Operations Lead" },
+          { name: "Hari T", role: "Passionate Developer" },
+          { name: "Yuganshi Bhatnagar", role: "Passionate Developer" },
         ].map((member, index) => (
           <div key={index} className="text-center">
             <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto flex items-center justify-center">
