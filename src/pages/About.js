@@ -35,8 +35,8 @@ const About = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Team Member */}
         {[
-          { name: "Tenma", role: "Passionate Developer" },
-          { name: "Kia", role: "Passionate Developer" },
+          { name: "Hari T", role: "Passionate Developer" },
+          { name: "Yuganshi Bhatnagar", role: "Passionate Developer" },
         ].map((member, index) => (
           <div key={index} className="text-center">
             <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto flex items-center justify-center">
