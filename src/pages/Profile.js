@@ -53,7 +53,7 @@ const Profile = () => {
 
     try {
       const response = await fetch(
-        "https://aristotle-839538790556.asia-south2.run.app/dashboard/uploadImg",
+        "https://atplace-api-565389196387.asia-south1.run.app/dashboard/uploadImg",
         {
           method: "POST",
           body: formData,
@@ -63,7 +63,7 @@ const Profile = () => {
       const data = await response.json();
       if (data.imageUrl) {
         setImage(
-          `https://aristotle-839538790556.asia-south2.run.app/${data.imageUrl}`
+          `https://atplace-api-565389196387.asia-south1.run.app/${data.imageUrl}`
         );
       }
     } catch (error) {
@@ -147,7 +147,7 @@ export const loader = async ({ params }) => {
 
   try {
     const response = await fetch(
-      "https://aristotle-839538790556.asia-south2.run.app/dashboard/profile",
+      "https://atplace-api-565389196387.asia-south1.run.app/dashboard/profile",
       {
         headers: {
           Authorization: `Bearer ${token}`,

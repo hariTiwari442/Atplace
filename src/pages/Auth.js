@@ -27,11 +27,11 @@ const AuthPage = (props) => {
       email: formData.get("email"),
       password: formData.get("password"),
     };
-    // https://aristotle-839538790556.asia-south2.run.app
+    // https://atplace-api-565389196387.asia-south1.run.app
     try {
       const mode = isSignUp ? "signup" : "login";
       const res = await fetch(
-        `https://aristotle-839538790556.asia-south2.run.app/${mode}`,
+        `https://atplace-api-565389196387.asia-south1.run.app/${mode}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -200,7 +200,7 @@ export const action = async ({ request }) => {
   };
 
   const res = await fetch(
-    "https://aristotle-839538790556.asia-south2.run.app/" + mode,
+    "https://atplace-api-565389196387.asia-south1.run.app/" + mode,
     {
       method: "POST",
       headers: {

@@ -113,7 +113,7 @@ export const action = async ({ request }) => {
 
   try {
     const res = await fetch(
-      "https://aristotle-839538790556.asia-south2.run.app/dashboard/contact",
+      "https://atplace-api-565389196387.asia-south1.run.app/dashboard/contact",
       {
         method: "POST",
         headers: {

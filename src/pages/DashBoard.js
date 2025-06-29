@@ -25,7 +25,7 @@ const DashBoard = () => {
     if (!proceed) return;
     try {
       const response = await fetch(
-        `https://aristotle-839538790556.asia-south2.run.app/dashboard/delete/place/${placeId}`,
+        `https://atplace-api-565389196387.asia-south1.run.app/dashboard/delete/place/${placeId}`,
         {
           method: "DELETE",
           headers: {
@@ -61,7 +61,7 @@ const DashBoard = () => {
   const handleSubmit = async (formData) => {
     try {
       const response = await fetch(
-        "https://aristotle-839538790556.asia-south2.run.app/dashboard/add",
+        "https://atplace-api-565389196387.asia-south1.run.app/dashboard/add",
         {
           method: "POST",
           headers: {
@@ -134,7 +134,7 @@ export const loader = async ({ params }) => {
   }
 
   const response = await fetch(
-    "https://aristotle-839538790556.asia-south2.run.app/dashboard/getAll",
+    "https://atplace-api-565389196387.asia-south1.run.app/dashboard/getAll",
     {
       method: "GET",
       headers: {

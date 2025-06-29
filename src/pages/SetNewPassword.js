@@ -35,13 +35,16 @@ const SetNewPassword = () => {
     console.log(formData);
 
     // API call to update password
-    fetch("https://aristotle-839538790556.asia-south2.run.app/reset-password", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData), // Corrected JSON.stringify()
-    })
+    fetch(
+      "https://atplace-api-565389196387.asia-south1.run.app/reset-password",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData), // Corrected JSON.stringify()
+      }
+    )
       .then((res) => res.json())
       .then((data) => console.log("Response:", data))
       .catch((error) => console.error("Error:", error));

@@ -47,7 +47,7 @@ const PlaceCard = ({ name, count, placeId, onDelete, Tag }) => {
       const timeoutId = setTimeout(() => controller.abort(), 7000); // 7s timeout
 
       const response = await fetch(
-        `https://aristotle-839538790556.asia-south2.run.app/dashboard/place/${placeId}`,
+        `https://atplace-api-565389196387.asia-south1.run.app/dashboard/place/${placeId}`,
         {
           method: "POST",
           headers: {
