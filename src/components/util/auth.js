@@ -12,6 +12,16 @@ export function tokenLoader() {
   return getAuthToken();
 }
 
+// If user is already logged in, skip the auth page and go straight to dashboard
+export function redirectIfAuth() {
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  if (token && userId) {
+    return redirect(`/dashboard/${userId}`);
+  }
+  return null;
+}
+
 export function checkAuthLoader() {
   const token = getAuthToken();
   if (!token) {

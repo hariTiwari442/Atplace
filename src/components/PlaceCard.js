@@ -47,7 +47,7 @@ const PlaceCard = ({ name, count, placeId, onDelete, Tag }) => {
       const timeoutId = setTimeout(() => controller.abort(), 7000); // 7s timeout
 
       const response = await fetch(
-        `https://atplace-api-565389196387.asia-south1.run.app/dashboard/place/${placeId}`,
+        `${process.env.REACT_APP_API_URL}/dashboard/place/${placeId}`,
         {
           method: "POST",
           headers: {
@@ -83,27 +83,39 @@ const PlaceCard = ({ name, count, placeId, onDelete, Tag }) => {
     }
   };
 
+  const isOptum = Tag === "Work";
+
   return (
-    <div className="bg-white shadow-lg rounded-2xl p-6 w-64 text-center">
-      <h2 className="text-xl font-bold mb-1">{name}</h2>
-      <p className="text-sm font-semibold">{Tag}</p>
+    <div
+      className="shadow-lg rounded-2xl p-6 w-64 text-center"
+      style={isOptum ? { backgroundColor: "#002677", color: "#fff" } : { backgroundColor: "#fff", color: "#000" }}
+    >
+      <h2 className="text-xl font-bold mb-1">
+        {isOptum ? (
+          <><span style={{ color: "#FF6900" }}>Optum</span> <span style={{ color: "#fff" }}>GGN</span></>
+        ) : name}
+      </h2>
+      <p className="text-sm font-semibold" style={isOptum ? { color: "#FF6900" } : {}}>{Tag}</p>
       <p className="text-3xl font-semibold">{newCount}</p>
 
       <div className="flex justify-center space-x-4 mt-4">
         <button
-          className="p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+          className="p-2 rounded-full hover:opacity-80"
+          style={isOptum ? { backgroundColor: "#FF6900", color: "#fff" } : { backgroundColor: "#e5e7eb" }}
           onClick={updateNegativeCounter}
         >
           <Minus size={20} />
         </button>
         <button
-          className="p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+          className="p-2 rounded-full hover:opacity-80"
+          style={isOptum ? { backgroundColor: "#FF6900", color: "#fff" } : { backgroundColor: "#e5e7eb" }}
           onClick={updateHandler}
         >
           <Plus size={20} />
         </button>
         <button
-          className="p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+          className="p-2 rounded-full hover:opacity-80"
+          style={isOptum ? { backgroundColor: "#FF6900", color: "#fff" } : { backgroundColor: "#e5e7eb" }}
           //   onClick={() => setCount(0)}
         >
           <RotateCw size={20} />

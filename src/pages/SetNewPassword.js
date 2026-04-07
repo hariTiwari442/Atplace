@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Eye, EyeOff, Lock } from "lucide-react";
 import { useLocation } from "react-router-dom";
-import { stringify } from "postcss";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -36,7 +35,7 @@ const SetNewPassword = () => {
 
     // API call to update password
     fetch(
-      "https://atplace-api-565389196387.asia-south1.run.app/reset-password",
+      `${process.env.REACT_APP_API_URL}/reset-password`,
       {
         method: "POST",
         headers: {

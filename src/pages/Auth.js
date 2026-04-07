@@ -8,10 +8,9 @@ import {
   Link,
 } from "react-router-dom";
 
-const AuthPage = (props) => {
+const AuthPage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [userExist, setUserExist] = useState(false);
   const [isSignUp, setIsSignup] = useState(
     searchParams.get("mode") === "signup"
   );
@@ -27,11 +26,10 @@ const AuthPage = (props) => {
       email: formData.get("email"),
       password: formData.get("password"),
     };
-    // https://atplace-api-565389196387.asia-south1.run.app
     try {
       const mode = isSignUp ? "signup" : "login";
       const res = await fetch(
-        `https://atplace-api-565389196387.asia-south1.run.app/${mode}`,
+        `${process.env.REACT_APP_API_URL}/${mode}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -50,6 +48,11 @@ const AuthPage = (props) => {
       } else if (res.ok && mode === "login") {
         localStorage.setItem("token", resData.token);
         localStorage.setItem("userId", resData.userId);
+        // Seed default places for new users (no-op if already exists)
+        await fetch(`${process.env.REACT_APP_API_URL}/dashboard/seed`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${resData.token}` },
+        });
         navigate(`/dashboard/${resData.userId}`);
       } else {
         if (res.status == 409) {
@@ -200,7 +203,7 @@ export const action = async ({ request }) => {
   };
 
   const res = await fetch(
-    "https://atplace-api-565389196387.asia-south1.run.app/" + mode,
+    `${process.env.REACT_APP_API_URL}/${mode}`,
     {
       method: "POST",
       headers: {

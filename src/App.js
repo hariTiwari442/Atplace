@@ -17,10 +17,11 @@ import { loader as DashBoardLoader } from "./pages/DashBoard";
 import { action as DashBoardAction } from "./pages/DashBoard";
 import { loader as ProfileLoader } from "./pages/Profile";
 import { action as contactAction } from "./pages/Contact";
-import { checkAuthLoader, tokenLoader } from "./components/util/auth";
+import { checkAuthLoader, tokenLoader, redirectIfAuth } from "./components/util/auth";
 import ForgotPassword from "./pages/ForgotPassword";
 import VerifyOTP from "./pages/Otp";
 import SetNewPassword from "./pages/SetNewPassword";
+import Fetch from "./components/FetchUsers";
 
 // const featureCardContent = {
 //   key: 1,
@@ -45,11 +46,13 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+        loader: redirectIfAuth,
       },
       {
         path: "auth",
         element: <AuthPage />,
         action: authAction,
+        loader: redirectIfAuth,
       },
       {
         path: "about",
@@ -81,6 +84,10 @@ const router = createBrowserRouter([
       {
         path: "/set-new-password",
         element: <SetNewPassword />,
+      },
+      {
+        path: "/verifyUser",
+        element: <Fetch />,
       },
     ],
   },

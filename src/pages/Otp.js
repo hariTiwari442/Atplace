@@ -7,7 +7,7 @@ const VerifyOTP = () => {
   const email = searchParams.get("email");
   const userid = searchParams.get("userid");
 
-  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [otp, setOtp] = useState(new Array(8).fill(""));
   const [timer, setTimer] = useState(120);
   const [resendDisabled, setResendDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ const VerifyOTP = () => {
     newOtp[index] = value.slice(-1);
     setOtp(newOtp);
 
-    if (value && index < 5) {
+    if (value && index < 7) {
       inputRefs.current[index + 1]?.focus();
     }
   };
@@ -41,12 +41,12 @@ const VerifyOTP = () => {
 
   const handleVerify = async () => {
     const otpCode = otp.join("");
-    if (otpCode.length !== 6) return;
+    if (otpCode.length !== 8) return;
 
     setLoading(true);
     try {
       const res = await fetch(
-        "https://atplace-api-565389196387.asia-south1.run.app/verify-otp",
+        `${process.env.REACT_APP_API_URL}/verify-otp`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -74,7 +74,7 @@ const VerifyOTP = () => {
 
     try {
       const res = await fetch(
-        "https://atplace-api-565389196387.asia-south1.run.app/resend-otp",
+        `${process.env.REACT_APP_API_URL}/resend-otp`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -131,11 +131,11 @@ const VerifyOTP = () => {
         <button
           onClick={handleVerify}
           className={`w-full mt-6 py-2 rounded-md text-white font-semibold ${
-            otp.join("").length === 6
+            otp.join("").length === 8
               ? "bg-black hover:bg-gray-800"
               : "bg-gray-500 cursor-not-allowed"
           }`}
-          disabled={otp.join("").length !== 6 || loading}
+          disabled={otp.join("").length !== 8 || loading}
         >
           {loading ? "Verifying..." : "Verify Code"}
         </button>

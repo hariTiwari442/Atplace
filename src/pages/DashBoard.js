@@ -25,7 +25,7 @@ const DashBoard = () => {
     if (!proceed) return;
     try {
       const response = await fetch(
-        `https://atplace-api-565389196387.asia-south1.run.app/dashboard/delete/place/${placeId}`,
+        `${process.env.REACT_APP_API_URL}/dashboard/delete/place/${placeId}`,
         {
           method: "DELETE",
           headers: {
@@ -61,7 +61,7 @@ const DashBoard = () => {
   const handleSubmit = async (formData) => {
     try {
       const response = await fetch(
-        "https://atplace-api-565389196387.asia-south1.run.app/dashboard/add",
+        `${process.env.REACT_APP_API_URL}/dashboard/add`,
         {
           method: "POST",
           headers: {
@@ -134,7 +134,7 @@ export const loader = async ({ params }) => {
   }
 
   const response = await fetch(
-    "https://atplace-api-565389196387.asia-south1.run.app/dashboard/getAll",
+    `${process.env.REACT_APP_API_URL}/dashboard/getAll`,
     {
       method: "GET",
       headers: {

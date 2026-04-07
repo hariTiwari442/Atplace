@@ -118,8 +118,6 @@ const Navbar = () => {
               Dashboard
             </NavLink>
           )}
-          {/* "hover:text-blue-600 flex items-center space-x-2" */}
-          {/* Profile with Icon */}
           {userId !== "" && (
             <NavLink
               to={`/profile/${userId}`}

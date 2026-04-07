@@ -53,7 +53,7 @@ const Profile = () => {
 
     try {
       const response = await fetch(
-        "https://atplace-api-565389196387.asia-south1.run.app/dashboard/uploadImg",
+        `${process.env.REACT_APP_API_URL}/dashboard/uploadImg`,
         {
           method: "POST",
           body: formData,
@@ -62,9 +62,7 @@ const Profile = () => {
 
       const data = await response.json();
       if (data.imageUrl) {
-        setImage(
-          `https://atplace-api-565389196387.asia-south1.run.app/${data.imageUrl}`
-        );
+        setImage(data.imageUrl);
       }
     } catch (error) {
       console.error("Upload failed:", error);
@@ -147,7 +145,7 @@ export const loader = async ({ params }) => {
 
   try {
     const response = await fetch(
-      "https://atplace-api-565389196387.asia-south1.run.app/dashboard/profile",
+      `${process.env.REACT_APP_API_URL}/dashboard/profile`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

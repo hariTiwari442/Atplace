@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import {
   Form,
@@ -110,10 +110,10 @@ export const action = async ({ request }) => {
     email: data.get("email"),
     message: data.get("message"),
   };
-
+  // https://atplace-api-565389196387.asia-south1.run.app
   try {
     const res = await fetch(
-      "https://atplace-api-565389196387.asia-south1.run.app/dashboard/contact",
+      `${process.env.REACT_APP_API_URL}/dashboard/contact`,
       {
         method: "POST",
         headers: {
