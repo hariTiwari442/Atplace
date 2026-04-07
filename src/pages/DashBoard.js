@@ -144,12 +144,15 @@ export const loader = async ({ params }) => {
     }
   );
 
-  if (!response.ok) {
-    console.log("error hai");
-    throw json({ message: "Could not fetch data" }, { status: 500 });
-  } else {
-    const resData = await response.json();
-    console.log(resData);
-    return resData;
+  if (response.status === 401) {
+    localStorage.clear();
+    return redirect("/auth?mode=login");
   }
+
+  if (!response.ok) {
+    throw json({ message: "Could not fetch data" }, { status: 500 });
+  }
+
+  const resData = await response.json();
+  return resData;
 };

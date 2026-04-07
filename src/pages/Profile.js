@@ -153,13 +153,17 @@ export const loader = async ({ params }) => {
       }
     );
 
+    if (response.status === 401) {
+      localStorage.clear();
+      return redirect("/auth?mode=login");
+    }
+
     if (!response.ok) {
       throw new Error("Failed to fetch profile");
     }
 
     const data = await response.json();
-    console.log("Fetched data:", data);
-    return data; // ✅ Correctly returning fetched user data
+    return data;
   } catch (error) {
     console.error("Error fetching profile:", error);
     return null;
