@@ -12,7 +12,7 @@ const PlaceCard = ({ name, count, placeId, onDelete, Tag }) => {
       const timer = setTimeout(() => {
         setErrorMessage("");
         setSuccessMessage("");
-      }, 3000); // Message disappears after 3 seconds
+      }, 6000);
 
       return () => clearTimeout(timer); // Cleanup function
     }
@@ -31,14 +31,24 @@ const PlaceCard = ({ name, count, placeId, onDelete, Tag }) => {
 
       const getPosition = () =>
         new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject, {
-            enableHighAccuracy: true, // More precise location
-            timeout: 10000, // 10s timeout
-            maximumAge: 5000, // Cache position for 5s
+          navigator.geolocation.getCurrentPosition(resolve, (err) => {
+            if (err.code === 1) {
+              // PERMISSION_DENIED
+              reject(new Error(
+                "Location access denied. On iPhone: Settings → Safari → Location → Allow. On Android: tap the lock icon in the address bar and allow location."
+              ));
+            } else if (err.code === 2) {
+              reject(new Error("Unable to determine your location. Please try again outdoors or near a window."));
+            } else {
+              reject(new Error("Location request timed out. Please try again."));
+            }
+          }, {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 5000,
           });
         });
 
-      // Get current location
       const position = await getPosition();
       const { latitude, longitude } = position.coords;
 
