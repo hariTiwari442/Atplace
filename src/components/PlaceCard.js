@@ -31,20 +31,26 @@ const PlaceCard = ({ name, count, placeId, onDelete, Tag }) => {
 
       const getPosition = () =>
         new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, (err) => {
-            if (err.code === 1) {
-              // PERMISSION_DENIED
-              reject(new Error(
-                "Location access denied. On iPhone: Settings → Safari → Location → Allow. On Android: tap the lock icon in the address bar and allow location."
-              ));
-            } else if (err.code === 2) {
-              reject(new Error("Unable to determine your location. Please try again outdoors or near a window."));
-            } else {
-              reject(new Error("Location request timed out. Please try again."));
-            }
+          // First try high accuracy, fall back to low accuracy on error
+          navigator.geolocation.getCurrentPosition(resolve, () => {
+            navigator.geolocation.getCurrentPosition(resolve, (err) => {
+              if (err.code === 1) {
+                reject(new Error(
+                  "Location denied. iPhone: Settings → Privacy → Location Services → AtPlace (or Safari) → While Using App"
+                ));
+              } else if (err.code === 2) {
+                reject(new Error("Location unavailable. Please try again near a window or outside."));
+              } else {
+                reject(new Error("Location timed out. Please try again."));
+              }
+            }, {
+              enableHighAccuracy: false,
+              timeout: 10000,
+              maximumAge: 60000,
+            });
           }, {
             enableHighAccuracy: true,
-            timeout: 10000,
+            timeout: 8000,
             maximumAge: 5000,
           });
         });
