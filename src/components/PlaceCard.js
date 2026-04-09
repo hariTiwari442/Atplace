@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Plus, Minus, RotateCw } from "lucide-react";
 import { getAuthToken } from "./util/auth";
+import { useNavigate } from "react-router-dom";
 const PlaceCard = ({ name, count, placeId, onDelete, Tag }) => {
   const [newCount, setnewCount] = useState(count);
   const token = getAuthToken();
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -77,8 +79,14 @@ const PlaceCard = ({ name, count, placeId, onDelete, Tag }) => {
 
       clearTimeout(timeoutId); // Clear timeout if request completes
 
+      if (response.status === 401) {
+        localStorage.clear();
+        navigate("/auth?mode=login&reason=expired");
+        return;
+      }
+
       if (!response.ok) {
-        const errorText = await response.text(); // Read raw response
+        const errorText = await response.text();
         const errorJson = JSON.parse(errorText);
         throw new Error(errorJson.message || "Failed to update place");
       }

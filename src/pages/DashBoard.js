@@ -36,16 +36,17 @@ const DashBoard = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to delete place");
+        const data = await response.json();
+        alert(data.message || "Failed to delete place.");
+        return;
       }
+
       setPlaces((prevPlaces) =>
         prevPlaces.filter((place) => place.placeId !== placeId)
       );
-
-      // Revalidate to ensure data consistency with backend
       revalidate();
     } catch (error) {
-      console.error(error);
+      alert("Something went wrong. Please try again.");
     }
   };
 

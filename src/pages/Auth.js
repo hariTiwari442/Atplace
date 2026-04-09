@@ -11,6 +11,7 @@ import {
 const AuthPage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const sessionExpired = searchParams.get("reason") === "expired";
   const [isSignUp, setIsSignup] = useState(
     searchParams.get("mode") === "signup"
   );
@@ -71,6 +72,11 @@ const AuthPage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-white font-inter">
       <div className="w-full max-w-md p-8">
+        {sessionExpired && (
+          <div className="bg-red-50 border border-red-300 text-red-700 text-sm px-4 py-3 rounded-lg mb-4 text-center">
+            Session expired. Please log in again.
+          </div>
+        )}
         {/* Header */}
         <h2 className="text-3xl font-bold text-center mb-6">
           {isSignUp ? "Create Account" : "Welcome Back"}
