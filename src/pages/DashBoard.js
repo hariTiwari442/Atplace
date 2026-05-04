@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import PlaceForm from "../components/AddPlace";
 import Footer from "../components/footer";
 
+
 const DashBoard = () => {
   const navigation = useNavigation();
   console.log(navigation.state, "state of loader");
