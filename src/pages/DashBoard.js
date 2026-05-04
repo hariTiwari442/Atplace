@@ -18,38 +18,6 @@ const DashBoard = () => {
   const [places, setPlaces] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
-  const startDeleteHandler = async (placeId) => {
-    const proceed = window.confirm(
-      "Are you sure you want to delete this place?"
-    );
-    if (!proceed) return;
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/dashboard/delete/place/${placeId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const data = await response.json();
-        alert(data.message || "Failed to delete place.");
-        return;
-      }
-
-      setPlaces((prevPlaces) =>
-        prevPlaces.filter((place) => place.placeId !== placeId)
-      );
-      revalidate();
-    } catch (error) {
-      alert("Something went wrong. Please try again.");
-    }
-  };
-
   useEffect(() => {
     if (
       placess.length > 0 &&
@@ -95,7 +63,6 @@ const DashBoard = () => {
                   placeId={place.placeId}
                   name={place.name}
                   count={place.Count}
-                  onDelete={startDeleteHandler}
                   Tag={place.tag}
                 />
               ))}
